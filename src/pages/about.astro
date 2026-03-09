@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About" description="關於我">
+  <div class="max-w-2xl">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">About</h1>
+
+    <div class="prose">
+      <p>
+        Hi，我是 CCY，一位熱愛技術的軟體工程師。
+      </p>
+
+      <h2>技能</h2>
+      <ul>
+        <li><strong>前端：</strong>React, Vue, TypeScript, Tailwind CSS, Astro</li>
+        <li><strong>後端：</strong>Node.js, Python, Go</li>
+        <li><strong>DevOps：</strong>Docker, CI/CD, Cloudflare</li>
+        <li><strong>其他：</strong>Git, Linux, SQL</li>
+      </ul>
+
+      <h2>關於這個部落格</h2>
+      <p>
+        這個部落格使用 <a href="https://astro.build">Astro</a> 建置，搭配 Tailwind CSS 進行樣式設計，部署在 Cloudflare Pages 上。
+        內容涵蓋技術文章、學習筆記、以及個人日誌。
+      </p>
+
+      <h2>聯絡方式</h2>
+      <p>
+        歡迎透過 <a href="https://github.com">GitHub</a> 與我聯繫。
+      </p>
+    </div>
+  </div>
+</BaseLayout>

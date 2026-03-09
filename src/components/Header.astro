@@ -1,0 +1,82 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import Search from './Search.astro';
+
+const navLinks = [
+  { href: '/blog', label: 'Blog' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/about', label: 'About' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm sticky top-0 z-50">
+  <nav class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="text-xl font-bold text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+      CCY Blog
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden sm:flex items-center gap-6">
+      {navLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          class:list={[
+            'text-sm font-medium transition-colors',
+            currentPath.startsWith(href)
+              ? 'text-primary-600 dark:text-primary-400'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100',
+          ]}
+        >
+          {label}
+        </a>
+      ))}
+      <Search />
+      <ThemeToggle />
+    </div>
+
+    <!-- Mobile menu button -->
+    <div class="flex sm:hidden items-center gap-3">
+      <Search />
+      <ThemeToggle />
+      <button
+        id="mobile-menu-btn"
+        class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+        aria-label="Toggle menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile nav -->
+  <div id="mobile-menu" class="hidden sm:hidden border-t border-gray-200 dark:border-gray-800">
+    <div class="px-4 py-3 space-y-2">
+      {navLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          class:list={[
+            'block py-2 text-sm font-medium transition-colors',
+            currentPath.startsWith(href)
+              ? 'text-primary-600 dark:text-primary-400'
+              : 'text-gray-600 dark:text-gray-400',
+          ]}
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+</script>

@@ -1,0 +1,99 @@
+<button
+  id="search-btn"
+  class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+  aria-label="Search"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+  </svg>
+</button>
+
+<!-- Search modal -->
+<div id="search-modal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm">
+  <div class="max-w-xl mx-auto mt-20 p-4">
+    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-800">
+      <div class="p-4">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">搜尋</h3>
+          <button id="search-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" aria-label="Close search">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div id="search-container"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    var searchBtn = document.getElementById('search-btn');
+    var searchModal = document.getElementById('search-modal');
+    var searchClose = document.getElementById('search-close');
+
+    searchBtn && searchBtn.addEventListener('click', function() {
+      searchModal && searchModal.classList.remove('hidden');
+      loadPagefind();
+    });
+
+    searchClose && searchClose.addEventListener('click', function() {
+      searchModal && searchModal.classList.add('hidden');
+    });
+
+    searchModal && searchModal.addEventListener('click', function(e) {
+      if (e.target === searchModal) {
+        searchModal.classList.add('hidden');
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && searchModal) {
+        searchModal.classList.add('hidden');
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchModal && searchModal.classList.remove('hidden');
+        loadPagefind();
+      }
+    });
+
+    var pagefindLoaded = false;
+    function loadPagefind() {
+      if (pagefindLoaded) return;
+      pagefindLoaded = true;
+      var script = document.createElement('script');
+      script.src = '/pagefind/pagefind-ui.js';
+      script.onload = function() {
+        new PagefindUI({
+          element: '#search-container',
+          showSubResults: true,
+          showImages: false,
+        });
+      };
+      script.onerror = function() {
+        var container = document.getElementById('search-container');
+        if (container) container.innerHTML = '<p style="color:#6b7280;font-size:0.875rem;">搜尋功能需要先執行 build。</p>';
+      };
+      document.head.appendChild(script);
+    }
+  });
+</script>
+
+<style is:global>
+  @reference "../styles/global.css";
+
+  .pagefind-ui__search-input {
+    @apply w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500;
+  }
+  .pagefind-ui__result {
+    @apply border-b border-gray-100 dark:border-gray-800 py-3;
+  }
+  .pagefind-ui__result-link {
+    @apply text-primary-600 dark:text-primary-400 font-medium hover:underline;
+  }
+  .pagefind-ui__result-excerpt {
+    @apply text-sm text-gray-600 dark:text-gray-400 mt-1;
+  }
+</style>

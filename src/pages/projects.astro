@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Projects" description="我的作品集">
+  <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Projects</h1>
+  <div class="grid gap-6 sm:grid-cols-2">
+    {projects.map((project) => (
+      <ProjectCard
+        title={project.data.title}
+        description={project.data.description}
+        url={project.data.url}
+        github={project.data.github}
+        image={project.data.image}
+        tech={project.data.tech}
+      />
+    ))}
+  </div>
+</BaseLayout>
