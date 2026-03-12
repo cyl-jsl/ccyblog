@@ -335,6 +335,7 @@
 title: "系列標題 — 篇名"
 description: "一句話摘要"
 pubDate: YYYY-MM-DD
+updatedDate: YYYY-MM-DD  # 可選，修訂時標記
 category: "技術"
 tags: ["ai-agent", "skills-framework", "design-decisions"]
 heroImage: ""  # 可選
@@ -408,7 +409,7 @@ draft: false
 |------|----------------|----------|
 | #1 | — | 全系列（作為共同脈絡） |
 | #2 | #1 | #3（REFACTOR Phase）、#10（回歸測試起源） |
-| #3 | #1, #2 | #4（外部化決策）、#6（context 壓力）、#8（Styling 案例） |
+| #3 | #1, #2 | #4（外部化決策）、#6（context 壓力） |
 | #4 | #3 | #9（Dual Fix 的 ecosystem 概念）、#11（一致性問題） |
 | #5 | #1 | #6, #7, #9, #10（各篇的 HARD-GATE 引用） |
 | #6 | #1, #3, #5 | #7（Orchestrator 的窗口路由） |
@@ -424,7 +425,7 @@ draft: false
 
 ## 7. 視覺素材策略
 
-- **圖表工具**：使用 Mermaid 語法嵌入 Markdown，Astro 可透過 remark plugin 渲染
+- **圖表工具**：使用 Mermaid 語法嵌入 Markdown，Astro 需安裝 `remark-mermaidjs` 或同等 plugin 來渲染（實作時補充此依賴）
 - **風格統一**：全系列使用一致的配色（與部落格深色/淺色模式相容）
 - **預計圖表清單**：
   - #1：系統規模概覽圖（頁面/元件/版型的關係）
