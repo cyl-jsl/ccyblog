@@ -5,7 +5,7 @@ url: "https://ccyblog.pages.dev"
 github: "https://github.com/cyl-jsl/ccyblog"
 tech: ["Astro 5", "Tailwind CSS 4", "TypeScript", "MDX", "Pagefind", "Cloudflare Pages"]
 featured: true
-order: 5
+order: 6
 ---
 
 ## 問題

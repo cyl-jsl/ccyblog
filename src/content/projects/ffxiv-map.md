@@ -4,7 +4,7 @@ description: "Final Fantasy XIV 藏寶圖路線規劃 Discord 機器人，自動
 github: "https://github.com/cyl-jsl/ffxiv-map"
 tech: ["Node.js", "TypeScript", "Discord.js", "Sharp", "Vitest"]
 featured: true
-order: 3
+order: 4
 ---
 
 ## 問題
