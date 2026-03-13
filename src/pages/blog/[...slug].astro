@@ -18,8 +18,12 @@ const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const currentIndex = allPosts.findIndex((p) => p.id === post.id);
-const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
-const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+const prevPost = currentIndex < allPosts.length - 1
+  ? { id: allPosts[currentIndex + 1].id, title: allPosts[currentIndex + 1].data.title }
+  : null;
+const nextPost = currentIndex > 0
+  ? { id: allPosts[currentIndex - 1].id, title: allPosts[currentIndex - 1].data.title }
+  : null;
 ---
 
 <PostLayout
@@ -32,28 +36,8 @@ const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
   heroImage={post.data.heroImage}
   headings={headings}
   rawContent={post.body ?? ''}
+  prevPost={prevPost}
+  nextPost={nextPost}
 >
   <Content />
 </PostLayout>
-
-<!-- Prev/Next navigation -->
-<div class="max-w-5xl mx-auto px-4 sm:px-6 pb-8">
-  <nav class="flex justify-between gap-4 pt-6 border-t border-gray-200 dark:border-gray-800">
-    {prevPost ? (
-      <a href={`/blog/${prevPost.id}`} class="group flex-1">
-        <span class="text-xs text-gray-500 dark:text-gray-400">&larr; 上一篇</span>
-        <p class="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors mt-1">
-          {prevPost.data.title}
-        </p>
-      </a>
-    ) : <div />}
-    {nextPost ? (
-      <a href={`/blog/${nextPost.id}`} class="group flex-1 text-right">
-        <span class="text-xs text-gray-500 dark:text-gray-400">下一篇 &rarr;</span>
-        <p class="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors mt-1">
-          {nextPost.data.title}
-        </p>
-      </a>
-    ) : <div />}
-  </nav>
-</div>
