@@ -73,4 +73,27 @@ const dateFormatter = new Intl.DateTimeFormat('zh-TW', {
       </aside>
     )}
   </article>
+
+  <script>
+    import mermaid from 'mermaid';
+
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.classList.contains('dark') ? 'dark' : 'default',
+    });
+
+    async function renderMermaid() {
+      const codeBlocks = document.querySelectorAll('pre > code.language-mermaid');
+      for (const codeBlock of codeBlocks) {
+        const pre = codeBlock.parentElement!;
+        const container = document.createElement('div');
+        container.className = 'mermaid';
+        container.textContent = codeBlock.textContent ?? '';
+        pre.replaceWith(container);
+      }
+      await mermaid.run({ querySelector: '.mermaid' });
+    }
+
+    renderMermaid();
+  </script>
 </BaseLayout>
