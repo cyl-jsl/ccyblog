@@ -1,6 +1,6 @@
 <button
   id="search-btn"
-  class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+  class="text-secondary hover:text-heading transition-colors"
   aria-label="Search"
 >
   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -11,11 +11,11 @@
 <!-- Search modal -->
 <div id="search-modal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm">
   <div class="max-w-xl mx-auto mt-20 p-4">
-    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-800">
+    <div class="bg-page rounded-xl shadow-2xl overflow-hidden border border-divider">
       <div class="p-4">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">搜尋</h3>
-          <button id="search-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" aria-label="Close search">
+          <h3 class="text-lg font-semibold text-heading">搜尋</h3>
+          <button id="search-close" class="text-muted hover:text-secondary" aria-label="Close search">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -85,15 +85,15 @@
   @reference "../styles/global.css";
 
   .pagefind-ui__search-input {
-    @apply w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500;
+    @apply w-full px-4 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent border border-divider bg-surface text-heading;
   }
   .pagefind-ui__result {
-    @apply border-b border-gray-100 dark:border-gray-800 py-3;
+    @apply border-b border-divider-light py-3;
   }
   .pagefind-ui__result-link {
-    @apply text-primary-600 dark:text-primary-400 font-medium hover:underline;
+    @apply text-accent font-medium hover:underline;
   }
   .pagefind-ui__result-excerpt {
-    @apply text-sm text-gray-600 dark:text-gray-400 mt-1;
+    @apply text-sm text-secondary mt-1;
   }
 </style>
