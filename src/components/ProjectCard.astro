@@ -11,18 +11,18 @@ interface Props {
 const { title, description, url, github, image, tech } = Astro.props;
 ---
 
-<div class="rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-md transition-shadow">
+<div class="bg-surface rounded-lg overflow-hidden hover:shadow-md transition-shadow">
   {image && (
     <img src={image} alt={title} class="w-full h-48 object-cover" />
   )}
   <div class="p-5">
-    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{title}</h3>
-    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">{description}</p>
+    <h3 class="font-serif text-[14px] font-normal text-heading mb-2">{title}</h3>
+    <p class="text-[11px] text-secondary mb-4">{description}</p>
 
     {tech.length > 0 && (
       <div class="flex flex-wrap gap-1.5 mb-4">
         {tech.map((t) => (
-          <span class="text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 px-2 py-0.5 rounded-full">
+          <span class="text-[10px] bg-cat-tech-bg text-cat-tech-text px-2 py-0.5 rounded-full">
             {t}
           </span>
         ))}
@@ -35,7 +35,7 @@ const { title, description, url, github, image, tech } = Astro.props;
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-sm text-primary-600 dark:text-primary-400 hover:underline"
+          class="text-[11px] text-accent hover:underline"
         >
           Live Demo &rarr;
         </a>
@@ -45,7 +45,7 @@ const { title, description, url, github, image, tech } = Astro.props;
           href={github}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+          class="text-[11px] text-secondary hover:text-heading transition-colors"
         >
           GitHub
         </a>
