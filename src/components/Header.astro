@@ -11,11 +11,11 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm sticky top-0 z-50">
+<header class="border-b border-divider bg-page/80 backdrop-blur-sm sticky top-0 z-50">
   <nav class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="text-xl font-bold text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-      CCY Blog
+    <a href="/" class="font-serif text-xl text-heading tracking-wider hover:text-accent transition-colors" style="letter-spacing: 1px;">
+      CCY
     </a>
 
     <!-- Desktop nav -->
@@ -26,8 +26,8 @@ const currentPath = Astro.url.pathname;
           class:list={[
             'text-sm font-medium transition-colors',
             currentPath.startsWith(href)
-              ? 'text-primary-600 dark:text-primary-400'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100',
+              ? 'text-heading border-b-[1.5px] border-accent pb-0.5'
+              : 'text-secondary hover:text-heading',
           ]}
         >
           {label}
@@ -43,7 +43,7 @@ const currentPath = Astro.url.pathname;
       <ThemeToggle />
       <button
         id="mobile-menu-btn"
-        class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+        class="text-secondary hover:text-heading"
         aria-label="Toggle menu"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -54,7 +54,7 @@ const currentPath = Astro.url.pathname;
   </nav>
 
   <!-- Mobile nav -->
-  <div id="mobile-menu" class="hidden sm:hidden border-t border-gray-200 dark:border-gray-800">
+  <div id="mobile-menu" class="hidden sm:hidden border-t border-divider">
     <div class="px-4 py-3 space-y-2">
       {navLinks.map(({ href, label }) => (
         <a
@@ -62,8 +62,8 @@ const currentPath = Astro.url.pathname;
           class:list={[
             'block py-2 text-sm font-medium transition-colors',
             currentPath.startsWith(href)
-              ? 'text-primary-600 dark:text-primary-400'
-              : 'text-gray-600 dark:text-gray-400',
+              ? 'text-heading'
+              : 'text-secondary',
           ]}
         >
           {label}
