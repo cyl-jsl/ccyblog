@@ -17,5 +17,8 @@
     "astro": "^5.17.1",
     "pagefind": "^1.4.0",
     "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.71.0"
   }
 }
