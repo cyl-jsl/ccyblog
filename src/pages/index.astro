@@ -1,73 +1,125 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostCard from '../components/PostCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
+import { categoryClass } from '../utils/style-helpers';
 
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 5);
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Featured post: newest with featured=true, or fallback to latest
+// allPosts is sorted newest-first, so .find() returns the most recent featured post
+const featuredPost = allPosts.find((p) => p.data.featured) || allPosts[0];
+
+// Recent posts: 4 most recent excluding the featured post
+const recentPosts = allPosts
+  .filter((p) => p.id !== featuredPost?.id)
+  .slice(0, 4);
 
 const featuredProjects = (await getCollection('projects'))
   .filter((p) => p.data.featured)
-  .sort((a, b) => a.data.order - b.data.order);
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const dateFormatter = new Intl.DateTimeFormat('zh-TW', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
 ---
 
 <BaseLayout title="首頁">
-  <!-- Hero -->
-  <section class="py-12 sm:py-16">
-    <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-      Hi, I'm <span class="text-primary-600 dark:text-primary-400">CCY</span>
-    </h1>
-    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
-      歡迎來到我的部落格。這裡記錄了我在軟體開發路上的學習筆記、技術探索與個人隨筆。
-    </p>
-  </section>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
 
-  <!-- Latest Posts -->
-  <section class="mb-16">
-    <div class="flex items-center justify-between mb-6">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">最新文章</h2>
-      <a href="/blog" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">
-        查看全部 &rarr;
-      </a>
-    </div>
-    <div class="grid gap-4 sm:grid-cols-2">
-      {allPosts.map((post) => (
-        <PostCard
-          title={post.data.title}
-          description={post.data.description}
-          pubDate={post.data.pubDate}
-          category={post.data.category}
-          tags={post.data.tags}
-          slug={post.id}
-          heroImage={post.data.heroImage}
-        />
-      ))}
-    </div>
-  </section>
-
-  <!-- Featured Projects -->
-  {featuredProjects.length > 0 && (
-    <section class="mb-16">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">精選作品</h2>
-        <a href="/projects" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">
-          查看全部 &rarr;
-        </a>
-      </div>
-      <div class="grid gap-6 sm:grid-cols-2">
-        {featuredProjects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            description={project.data.description}
-            url={project.data.url}
-            github={project.data.github}
-            image={project.data.image}
-            tech={project.data.tech}
-          />
-        ))}
-      </div>
+    {/* ── Masthead ── */}
+    <section class="text-center py-12 sm:py-16">
+      <p class="text-[10px] uppercase tracking-[4px] text-muted mb-4">Writings & Works</p>
+      <h1 class="font-serif text-[28px] font-normal text-heading mb-3">
+        在混亂中找到秩序，然後寫下來。
+      </h1>
+      <p class="text-[13px] text-secondary">
+        寫程式、做工具、偶爾記錄一些還沒想通的事情。
+      </p>
+      <div class="w-10 h-px bg-accent mx-auto mt-6"></div>
     </section>
-  )}
+
+    {/* ── Featured + Recent ── */}
+    {featuredPost && (
+      <section class="flex flex-col lg:flex-row gap-0 mb-12">
+        {/* Left: Featured */}
+        <div class="flex-[13] lg:pr-8">
+          <p class="text-[10px] uppercase tracking-[4px] text-muted mb-4">精選文章</p>
+          <a href={`/blog/${featuredPost.id}`} class="group block">
+            <h2 class="font-serif text-[20px] font-normal text-heading group-hover:text-accent transition-colors mb-3">
+              {featuredPost.data.title}
+            </h2>
+            <p class="text-[13px] text-secondary mb-3 leading-relaxed">
+              {featuredPost.data.description}
+            </p>
+            <div class="flex items-center gap-3">
+              <time class="font-mono text-[10px] text-muted" datetime={featuredPost.data.pubDate.toISOString()}>
+                {dateFormatter.format(featuredPost.data.pubDate)}
+              </time>
+              <span class:list={['text-[10px] px-2 py-0.5 rounded-full', categoryClass(featuredPost.data.category)]}>
+                {featuredPost.data.category}
+              </span>
+            </div>
+          </a>
+        </div>
+
+        {/* Vertical divider (desktop only) */}
+        <div class="hidden lg:block w-px bg-divider"></div>
+
+        {/* Right: Recent */}
+        <div class="flex-[7] lg:pl-8 mt-8 lg:mt-0">
+          <p class="text-[10px] uppercase tracking-[4px] text-muted mb-4">近期文章</p>
+          <ul class="space-y-0">
+            {recentPosts.map((post, i) => (
+              <li class:list={[i > 0 && 'border-t border-divider-light', 'py-3']}>
+                <a href={`/blog/${post.id}`} class="group block">
+                  <h3 class="font-serif text-[14px] font-normal text-heading group-hover:text-accent transition-colors mb-1">
+                    {post.data.title}
+                  </h3>
+                  <time class="font-mono text-[10px] text-muted" datetime={post.data.pubDate.toISOString()}>
+                    {dateFormatter.format(post.data.pubDate)}
+                  </time>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    {/* ── Ornamental Divider ── */}
+    <div class="flex items-center gap-4 my-12">
+      <div class="flex-1 h-px bg-divider"></div>
+      <span class="text-muted text-xs">✦</span>
+      <div class="flex-1 h-px bg-divider"></div>
+    </div>
+
+    {/* ── Featured Projects ── */}
+    {featuredProjects.length > 0 && (
+      <section class="mb-12">
+        <p class="text-[10px] uppercase tracking-[4px] text-muted mb-6">精選作品</p>
+        <div class:list={[
+          'grid gap-6',
+          featuredProjects.length >= 3 ? 'sm:grid-cols-2 lg:grid-cols-3' :
+          featuredProjects.length === 2 ? 'sm:grid-cols-2' : ''
+        ]}>
+          {featuredProjects.map((project) => (
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              url={project.data.url}
+              github={project.data.github}
+              image={project.data.image}
+              tech={project.data.tech}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
 </BaseLayout>
