@@ -1,5 +1,6 @@
 ---
 import PostCard from './PostCard.astro';
+import { categoryToSlug } from '../utils/category';
 
 interface Props {
   posts: Array<{
@@ -74,7 +75,7 @@ function pageUrl(page: number) {
           {allCategories.map((cat) => (
             <li>
               <a
-                href={`/blog/categories/${cat}`}
+                href={`/blog/categories/${categoryToSlug(cat)}`}
                 class="text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
               >
                 {cat}
