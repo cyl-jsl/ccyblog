@@ -217,7 +217,7 @@ git commit -m "content: add AI Skills #2 — TDD for Documentation"
   - v1→v2→v3 的三次演化具體內容
   - 三層載入的實際檔案結構
   - 統一引用語法 `→ 搜索 {檔案}「標題」` 的設計理由
-  - Styling Skill 的 layout-intent-guide 如何用規則推論 grid 佈局
+  - Styling Skill 的 patterns-and-intent 如何用規則推論 grid 佈局
 - [ ] **Step 2: Draft article** — 使用 @blog-post skill，含三層架構示意圖
 - [ ] **Step 3: Terminology check**
 - [ ] **Step 4: Add series navigation**
