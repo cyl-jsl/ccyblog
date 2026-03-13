@@ -1,4 +1,6 @@
 ---
+import { categoryClass } from '../utils/style-helpers';
+
 interface Props {
   title: string;
   description: string;
@@ -9,7 +11,7 @@ interface Props {
   heroImage?: string;
 }
 
-const { title, description, pubDate, category, tags, slug, heroImage } = Astro.props;
+const { title, description, pubDate, category, tags, slug } = Astro.props;
 
 const dateFormatter = new Intl.DateTimeFormat('zh-TW', {
   year: 'numeric',
@@ -18,25 +20,26 @@ const dateFormatter = new Intl.DateTimeFormat('zh-TW', {
 });
 ---
 
-<article class="group">
-  <a href={`/blog/${slug}`} class="block p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-md transition-all">
-    {heroImage && (
-      <img src={heroImage} alt={title} class="w-full h-48 object-cover rounded-lg mb-4" />
-    )}
-    <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-2">
-      <span class="bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 px-2 py-0.5 rounded-full font-medium">
+<article>
+  <a href={`/blog/${slug}`} class="group block py-5">
+    <div class="flex items-center gap-3 mb-2">
+      <time class="font-mono text-[10px] text-muted" datetime={pubDate.toISOString()}>
+        {dateFormatter.format(pubDate)}
+      </time>
+      <span class:list={['text-[10px] px-2 py-0.5 rounded-full', categoryClass(category)]}>
         {category}
       </span>
-      <time datetime={pubDate.toISOString()}>{dateFormatter.format(pubDate)}</time>
     </div>
-    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors mb-2">
+    <h3 class="font-serif text-[17px] font-normal text-heading group-hover:text-accent transition-colors mb-1.5">
       {title}
     </h3>
-    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{description}</p>
+    <p class="text-[12px] text-secondary leading-relaxed mb-2">
+      {description}
+    </p>
     {tags.length > 0 && (
-      <div class="flex flex-wrap gap-1.5 mt-3">
+      <div class="flex flex-wrap gap-1.5">
         {tags.map((tag) => (
-          <span class="text-xs text-gray-500 dark:text-gray-500 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded">
+          <span class="text-[9px] text-muted">
             #{tag}
           </span>
         ))}
