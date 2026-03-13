@@ -1,8 +1,8 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '../components/TableOfContents.astro';
-import TagList from '../components/TagList.astro';
 import { getReadingTime } from '../utils/reading-time';
+import { categoryClass } from '../utils/style-helpers';
 
 interface Props {
   title: string;
@@ -14,9 +14,11 @@ interface Props {
   heroImage?: string;
   headings: { depth: number; slug: string; text: string }[];
   rawContent: string;
+  prevPost?: { id: string; title: string } | null;
+  nextPost?: { id: string; title: string } | null;
 }
 
-const { title, description, pubDate, updatedDate, category, tags, heroImage, headings, rawContent } = Astro.props;
+const { title, description, pubDate, updatedDate, category, tags, heroImage, headings, rawContent, prevPost, nextPost } = Astro.props;
 const readingTime = getReadingTime(rawContent);
 
 const dateFormatter = new Intl.DateTimeFormat('zh-TW', {
@@ -27,52 +29,98 @@ const dateFormatter = new Intl.DateTimeFormat('zh-TW', {
 ---
 
 <BaseLayout title={title} description={description} image={heroImage}>
-  <article class="lg:grid lg:grid-cols-[1fr_220px] lg:gap-8">
-    <div>
-      <!-- Header -->
-      <header class="mb-8">
-        <div class="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <span class="bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 px-2.5 py-0.5 rounded-full text-xs font-medium">
-            {category}
-          </span>
-          <time datetime={pubDate.toISOString()}>{dateFormatter.format(pubDate)}</time>
-          <span>·</span>
-          <span>{readingTime}</span>
-        </div>
-        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
-          {title}
-        </h1>
-        {updatedDate && (
-          <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
-            最後更新：{dateFormatter.format(updatedDate)}
-          </p>
+  <div class="max-w-[960px] mx-auto px-4 sm:px-10 py-8">
+    <div class="flex justify-center gap-[60px]">
+      {/* Main content column */}
+      <article class="flex-[0_1_640px] min-w-0">
+        {/* Header with padding-left: 24px */}
+        <header class="mb-8 pl-6">
+          <a href="/blog" class="text-[11px] text-secondary hover:text-accent transition-colors">
+            &larr; 返回文章列表
+          </a>
+          <div class="flex items-center gap-3 mt-4 mb-3">
+            <time class="font-mono text-[11px] text-muted" datetime={pubDate.toISOString()}>
+              {dateFormatter.format(pubDate)}
+            </time>
+            <span class:list={['text-[10px] px-2 py-0.5 rounded-full', categoryClass(category)]}>
+              {category}
+            </span>
+            <span class="text-[11px] text-muted">{readingTime}</span>
+          </div>
+          <h1 class="font-serif text-[30px] font-normal text-heading leading-snug">
+            {title}
+          </h1>
+          {description && (
+            <p class="text-[14px] text-secondary mt-3">{description}</p>
+          )}
+          {updatedDate && (
+            <p class="text-[11px] text-muted mt-2">
+              最後更新：{dateFormatter.format(updatedDate)}
+            </p>
+          )}
+        </header>
+
+        {/* Full-width divider */}
+        <hr class="border-divider mb-8" />
+
+        {heroImage && (
+          <img src={heroImage} alt={title} class="w-full rounded-lg mb-8 object-cover max-h-96" />
         )}
-      </header>
 
-      {heroImage && (
-        <img src={heroImage} alt={title} class="w-full rounded-lg mb-8 object-cover max-h-96" />
-      )}
-
-      <!-- Content -->
-      <div class="prose">
-        <slot />
-      </div>
-
-      <!-- Tags -->
-      <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
-        <TagList tags={tags} />
-      </div>
-    </div>
-
-    <!-- Sidebar TOC (desktop) -->
-    {headings.length > 0 && (
-      <aside class="hidden lg:block">
-        <div class="sticky top-8">
-          <TableOfContents headings={headings} />
+        {/* Content — slot is inside .prose */}
+        <div class="prose">
+          <slot />
         </div>
-      </aside>
-    )}
-  </article>
+
+        {/* Tags (outside .prose to avoid style inheritance) */}
+        {tags.length > 0 && (
+          <div class="mt-8 pt-6 border-t border-divider">
+            <div class="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <a
+                  href={`/blog/tags/${tag}`}
+                  class="text-[10px] bg-surface text-secondary hover:text-accent px-3 py-1 rounded-full transition-colors"
+                >
+                  #{tag}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Prev/Next navigation (outside .prose to avoid style inheritance) */}
+        {(prevPost || nextPost) && (
+          <nav class="flex justify-between gap-4 pt-6 mt-8 border-t border-divider">
+            {prevPost ? (
+              <a href={`/blog/${prevPost.id}`} class="group flex-1">
+                <span class="text-[10px] text-muted">&larr; 上一篇</span>
+                <p class="font-serif text-[13px] text-heading group-hover:text-accent transition-colors mt-1">
+                  {prevPost.title}
+                </p>
+              </a>
+            ) : <div />}
+            {nextPost ? (
+              <a href={`/blog/${nextPost.id}`} class="group flex-1 text-right">
+                <span class="text-[10px] text-muted">下一篇 &rarr;</span>
+                <p class="font-serif text-[13px] text-heading group-hover:text-accent transition-colors mt-1">
+                  {nextPost.title}
+                </p>
+              </a>
+            ) : <div />}
+          </nav>
+        )}
+      </article>
+
+      {/* TOC sidebar (desktop) */}
+      {headings.length > 0 && (
+        <aside class="hidden lg:block w-[180px] flex-shrink-0">
+          <div class="sticky top-20">
+            <TableOfContents headings={headings} />
+          </div>
+        </aside>
+      )}
+    </div>
+  </div>
 
   <script>
     import mermaid from 'mermaid';
