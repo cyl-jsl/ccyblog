@@ -1,6 +1,5 @@
 ---
 import PostCard from './PostCard.astro';
-import { categoryToSlug } from '../utils/category';
 
 interface Props {
   posts: Array<{
@@ -16,23 +15,54 @@ interface Props {
   }>;
   currentPage: number;
   totalPages: number;
-  allCategories: string[];
-  allTags: string[];
+  categoryCounts: Record<string, number>;
+  totalPostCount: number;
+  activeCategory?: string;
 }
 
-const { posts, currentPage, totalPages, allCategories, allTags } = Astro.props;
+const { posts, currentPage, totalPages, categoryCounts, totalPostCount, activeCategory } = Astro.props;
 
 function pageUrl(page: number) {
   return page === 1 ? '/blog' : `/blog/page/${page}`;
 }
+
+const tabs = [
+  { label: '全部', count: totalPostCount, href: '/blog' },
+  { label: '技術', count: categoryCounts['技術'] || 0, href: '/blog/categories/tech' },
+  { label: '日誌', count: categoryCounts['日誌'] || 0, href: '/blog/categories/journal' },
+];
 ---
 
-<div class="lg:grid lg:grid-cols-[1fr_220px] lg:gap-8">
-  <!-- Posts -->
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-8">
+  {/* Header */}
+  <h1 class="font-serif text-[28px] font-normal text-heading mb-6">所有文章</h1>
+
+  {/* Category tabs */}
+  <div class="flex gap-6 mb-8 border-b border-divider">
+    {tabs.map((tab) => {
+      const isActive = activeCategory
+        ? tab.label === activeCategory
+        : tab.label === '全部';
+      return (
+        <a
+          href={tab.href}
+          class:list={[
+            'pb-3 text-sm transition-colors',
+            isActive
+              ? 'text-heading border-b-[1.5px] border-accent'
+              : 'text-secondary hover:text-heading',
+          ]}
+        >
+          {tab.label} ({tab.count})
+        </a>
+      );
+    })}
+  </div>
+
+  {/* Post list */}
   <div>
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Blog</h1>
-    <div class="grid gap-4">
-      {posts.map((post) => (
+    {posts.map((post, i) => (
+      <div class:list={[i > 0 && 'border-t border-divider-light']}>
         <PostCard
           title={post.data.title}
           description={post.data.description}
@@ -42,63 +72,29 @@ function pageUrl(page: number) {
           slug={post.id}
           heroImage={post.data.heroImage}
         />
-      ))}
-    </div>
-
-    {/* Pagination */}
-    {totalPages > 1 && (
-      <nav class="flex justify-center gap-2 mt-10">
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-          <a
-            href={pageUrl(page)}
-            class:list={[
-              'px-3 py-1.5 rounded text-sm font-medium transition-colors',
-              page === currentPage
-                ? 'bg-primary-600 text-white'
-                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800',
-            ]}
-          >
-            {page}
-          </a>
-        ))}
-      </nav>
-    )}
+      </div>
+    ))}
   </div>
 
-  <!-- Sidebar -->
-  <aside class="hidden lg:block">
-    <div class="sticky top-20 space-y-8">
-      {/* Categories */}
-      <div>
-        <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 text-sm">分類</h3>
-        <ul class="space-y-1.5">
-          {allCategories.map((cat) => (
-            <li>
-              <a
-                href={`/blog/categories/${categoryToSlug(cat)}`}
-                class="text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >
-                {cat}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+  {/* End dots */}
+  <div class="text-center text-muted text-sm my-8 tracking-[8px]">· · ·</div>
 
-      {/* Tags */}
-      <div>
-        <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 text-sm">標籤</h3>
-        <div class="flex flex-wrap gap-1.5">
-          {allTags.map((tag) => (
-            <a
-              href={`/blog/tags/${tag}`}
-              class="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 px-2 py-0.5 rounded transition-colors"
-            >
-              #{tag}
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
-  </aside>
+  {/* Pagination */}
+  {totalPages > 1 && (
+    <nav class="flex justify-center gap-2 mt-6">
+      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        <a
+          href={pageUrl(page)}
+          class:list={[
+            'w-7 h-7 flex items-center justify-center rounded text-sm transition-colors',
+            page === currentPage
+              ? 'bg-heading text-page'
+              : 'text-secondary hover:text-heading',
+          ]}
+        >
+          {page}
+        </a>
+      ))}
+    </nav>
+  )}
 </div>
