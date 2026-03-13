@@ -2,23 +2,16 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BlogListPage from '../../../components/BlogListPage.astro';
 import { getCollection } from 'astro:content';
-
-const postsPerPage = 10;
+import { POSTS_PER_PAGE } from '../../../utils/style-helpers';
 
 export async function getStaticPaths() {
-  const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
 
-  const totalPages = Math.ceil(allPosts.length / 10);
-
-  // Generate pages 2+ (page 1 is handled by /blog/index.astro)
-  return Array.from({ length: totalPages - 1 }, (_, i) => {
-    const page = i + 2;
-    return {
-      params: { page: String(page) },
-      props: { page },
-    };
-  });
+  return Array.from({ length: totalPages - 1 }, (_, i) => ({
+    params: { page: String(i + 2) },
+    props: { page: i + 2 },
+  }));
 }
 
 const { page: currentPage } = Astro.props;
@@ -26,13 +19,15 @@ const { page: currentPage } = Astro.props;
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
-const allCategories = [...new Set(allPosts.map((post) => post.data.category))].sort();
+const categoryCounts: Record<string, number> = {};
+allPosts.forEach((p) => {
+  categoryCounts[p.data.category] = (categoryCounts[p.data.category] || 0) + 1;
+});
 
-const totalPages = Math.ceil(allPosts.length / postsPerPage);
+const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
 const paginatedPosts = allPosts.slice(
-  (currentPage - 1) * postsPerPage,
-  currentPage * postsPerPage
+  (currentPage - 1) * POSTS_PER_PAGE,
+  currentPage * POSTS_PER_PAGE
 );
 ---
 
@@ -41,7 +36,7 @@ const paginatedPosts = allPosts.slice(
     posts={paginatedPosts}
     currentPage={currentPage}
     totalPages={totalPages}
-    allCategories={allCategories}
-    allTags={allTags}
+    categoryCounts={categoryCounts}
+    totalPostCount={allPosts.length}
   />
 </BaseLayout>

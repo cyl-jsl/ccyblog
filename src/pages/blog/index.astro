@@ -2,17 +2,18 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogListPage from '../../components/BlogListPage.astro';
 import { getCollection } from 'astro:content';
-
-const postsPerPage = 10;
+import { POSTS_PER_PAGE } from '../../utils/style-helpers';
 
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
-const allCategories = [...new Set(allPosts.map((post) => post.data.category))].sort();
+const categoryCounts: Record<string, number> = {};
+allPosts.forEach((p) => {
+  categoryCounts[p.data.category] = (categoryCounts[p.data.category] || 0) + 1;
+});
 
-const totalPages = Math.ceil(allPosts.length / postsPerPage);
-const paginatedPosts = allPosts.slice(0, postsPerPage);
+const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+const paginatedPosts = allPosts.slice(0, POSTS_PER_PAGE);
 ---
 
 <BaseLayout title="Blog" description="所有文章列表">
@@ -20,7 +21,7 @@ const paginatedPosts = allPosts.slice(0, postsPerPage);
     posts={paginatedPosts}
     currentPage={1}
     totalPages={totalPages}
-    allCategories={allCategories}
-    allTags={allTags}
+    categoryCounts={categoryCounts}
+    totalPostCount={allPosts.length}
   />
 </BaseLayout>
