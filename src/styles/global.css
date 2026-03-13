@@ -1,50 +1,123 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════
+   Design Tokens — auto-switch via .dark class
+   Raw values use --c-* prefix to avoid circular
+   references with @theme's --color-* namespace.
+   ═══════════════════════════════════════════ */
+
+@layer base {
+  :root {
+    --c-page: #faf6f1;
+    --c-surface: #f3ece2;
+    --c-heading: #3d3028;
+    --c-body: #5a4d40;
+    --c-secondary: #9a8470;
+    --c-muted: #b5a48e;
+    --c-divider: #e8dfd3;
+    --c-divider-light: #f0e9df;
+    --c-accent: #c4a882;
+    --c-accent-hover: #a8895c;
+    --c-blockquote-bg: #f5efe6;
+    --c-code-bg: #2d2a24;
+    --c-code-text: #d4c8b8;
+    --c-inline-code-bg: #f3ece2;
+
+    /* Category colors */
+    --c-cat-tech-bg: #efe8dd;
+    --c-cat-tech-text: #9a8470;
+    --c-cat-journal-bg: #e8f0e4;
+    --c-cat-journal-text: #6b8c5e;
+  }
+
+  .dark {
+    --c-page: #1c1917;
+    --c-surface: #262119;
+    --c-heading: #e8dfd3;
+    --c-body: #a89b8c;
+    --c-secondary: #8a7e72;
+    --c-muted: #6b6158;
+    --c-divider: #302a24;
+    --c-divider-light: #2a241e;
+    --c-accent: #d4a86a;
+    --c-accent-hover: #e0be88;
+    --c-blockquote-bg: #262119;
+    --c-code-bg: #131110;
+    --c-code-text: #d4c8b8;
+    --c-inline-code-bg: #131110;
+
+    /* Category colors */
+    --c-cat-tech-bg: #302a24;
+    --c-cat-tech-text: #b5a48e;
+    --c-cat-journal-bg: #1e2a1a;
+    --c-cat-journal-text: #8aab7f;
+  }
+}
+
 @theme {
+  /* Typography */
   --font-sans: "Inter", "Noto Sans TC", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: Georgia, "Noto Serif TC", serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
+
+  /* Colors — reference --c-* raw values, no circular refs */
+  --color-page: var(--c-page);
+  --color-surface: var(--c-surface);
+  --color-heading: var(--c-heading);
+  --color-body: var(--c-body);
+  --color-secondary: var(--c-secondary);
+  --color-muted: var(--c-muted);
+  --color-divider: var(--c-divider);
+  --color-divider-light: var(--c-divider-light);
+  --color-accent: var(--c-accent);
+  --color-accent-hover: var(--c-accent-hover);
+  --color-blockquote-bg: var(--c-blockquote-bg);
+  --color-code-bg: var(--c-code-bg);
+  --color-code-text: var(--c-code-text);
+  --color-inline-code-bg: var(--c-inline-code-bg);
+  --color-cat-tech-bg: var(--c-cat-tech-bg);
+  --color-cat-tech-text: var(--c-cat-tech-text);
+  --color-cat-journal-bg: var(--c-cat-journal-bg);
+  --color-cat-journal-text: var(--c-cat-journal-text);
 }
 
 /* Base styles */
 @layer base {
   body {
-    @apply bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 antialiased;
+    @apply bg-page text-body antialiased;
     transition: background-color 0.2s, color 0.2s;
   }
 
   /* Prose / article typography */
   .prose {
-    @apply max-w-none leading-relaxed;
+    @apply max-w-none text-body;
+    line-height: 1.85;
   }
 
   .prose h1 {
-    @apply text-3xl font-bold mt-10 mb-4 text-gray-900 dark:text-gray-100;
+    @apply font-serif font-normal text-heading mt-10 mb-4;
+    font-size: 28px;
   }
 
   .prose h2 {
-    @apply text-2xl font-semibold mt-8 mb-3 text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-800 pb-2;
+    @apply font-serif font-normal text-heading mt-8 mb-3 pb-2 border-b border-divider-light;
+    font-size: 20px;
   }
 
   .prose h3 {
-    @apply text-xl font-semibold mt-6 mb-2 text-gray-900 dark:text-gray-100;
+    @apply font-serif font-normal text-heading mt-6 mb-2;
+    font-size: 16px;
   }
 
   .prose p {
-    @apply my-4 leading-7;
+    @apply my-4;
   }
 
   .prose a {
-    @apply text-primary-600 dark:text-primary-400 underline underline-offset-2 hover:text-primary-700 dark:hover:text-primary-300;
+    @apply text-accent underline underline-offset-2 transition-colors;
+  }
+  .prose a:hover {
+    @apply text-accent-hover;
   }
 
   .prose ul {
@@ -57,22 +130,32 @@
 
   .prose li {
     @apply my-1;
+    line-height: 2;
   }
 
   .prose blockquote {
-    @apply border-l-4 border-primary-300 dark:border-primary-700 pl-4 my-4 italic text-gray-600 dark:text-gray-400;
+    @apply pl-4 my-4 italic text-body rounded-r-lg;
+    border-left: 3px solid var(--c-accent);
+    background: var(--c-blockquote-bg);
+    padding: 0.75rem 1rem;
   }
 
   .prose code {
-    @apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono;
+    @apply px-1.5 py-0.5 rounded text-sm font-mono;
+    background: var(--c-inline-code-bg);
   }
 
   .prose pre {
-    @apply my-4 rounded-lg overflow-x-auto text-sm;
+    @apply my-4 overflow-x-auto text-sm;
+    border-radius: 8px;
+    /* !important overrides Shiki's inline background-color */
+    background: var(--c-code-bg) !important;
+    color: var(--c-code-text);
   }
 
   .prose pre code {
     @apply bg-transparent p-0 rounded-none;
+    color: inherit;
   }
 
   .prose img {
@@ -80,7 +163,7 @@
   }
 
   .prose hr {
-    @apply my-8 border-gray-200 dark:border-gray-800;
+    @apply my-8 border-divider;
   }
 
   .prose table {
@@ -88,10 +171,10 @@
   }
 
   .prose th {
-    @apply border-b border-gray-300 dark:border-gray-700 px-3 py-2 text-left font-semibold;
+    @apply px-3 py-2 text-left font-semibold text-heading border-b border-divider;
   }
 
   .prose td {
-    @apply border-b border-gray-200 dark:border-gray-800 px-3 py-2;
+    @apply px-3 py-2 border-b border-divider-light;
   }
 }
