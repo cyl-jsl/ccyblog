@@ -42,9 +42,9 @@
     --c-accent: #d4a86a;
     --c-accent-hover: #e0be88;
     --c-blockquote-bg: #262119;
-    --c-code-bg: #131110;
+    --c-code-bg: #242019;
     --c-code-text: #d4c8b8;
-    --c-inline-code-bg: #131110;
+    --c-inline-code-bg: #2a2520;
 
     /* Category colors */
     --c-cat-tech-bg: #302a24;
@@ -148,9 +148,13 @@
   .prose pre {
     @apply my-4 overflow-x-auto text-sm;
     border-radius: 8px;
-    /* !important overrides Shiki's inline background-color */
-    background: var(--c-code-bg) !important;
-    color: var(--c-code-text);
+  }
+
+  /* Shiki dual theme: light uses inline styles, dark switches to --shiki-dark vars */
+  .dark .prose .astro-code,
+  .dark .prose .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
   }
 
   .prose pre code {
