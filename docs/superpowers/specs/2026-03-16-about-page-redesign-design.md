@@ -51,6 +51,10 @@ GitHub: https://github.com/cyl-jsl
 Email: cyl.jsl@gmail.com
 ```
 
+## 設計備註
+
+- h1 維持英文 "About"，不改為中文。雖然 Projects 頁用「作品」，但 About 作為英文詞已足夠直覺，不需要強制統一。
+
 ## 技術實作
 
 修改 `src/pages/about.astro`：
