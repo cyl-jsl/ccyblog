@@ -1,7 +1,7 @@
 ---
 title: "Redmine Skills"
 description: "Claude Code Agent Skill，讓 AI 透過自然語言操作 Redmine REST API——工時登打、議題管理、專案建置。"
-github: "https://github.com/ccy/redmine-skills"
+github: "https://github.com/cyl-jsl/redmine-skills"
 tech: ["Python", "Claude Agent Skill", "Redmine REST API"]
 featured: true
 order: 5
