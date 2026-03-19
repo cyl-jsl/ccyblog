@@ -1,5 +1,5 @@
 ---
-title: "一個 openclaw.plugin.json 如何被包裝成一場革命"
+title: "尼莫、龍蝦，與那個堅持要把大家放進魚缸的牙醫"
 description: "GTC 2026 後，社群開始問「該換到 NemoClaw 嗎？」——但打開 repo 第一行就會發現，這個問題本身就問錯了。從程式碼結構、安全哲學到實踐者踩坑紀錄，拆解兩者的共生關係與 NVIDIA 的平台算計。"
 pubDate: 2026-03-19
 category: "技術"
