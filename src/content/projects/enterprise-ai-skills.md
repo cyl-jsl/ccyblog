@@ -3,7 +3,7 @@ title: "Enterprise AI Skills Framework"
 description: "企業級 AI Agent 技能框架，透過 14 個結構化 Skill 引導 AI 在複雜前端系統中開發、除錯與驗證，大幅降低幻覺率。"
 tech: ["Markdown", "Claude Agent Skills", "React", "Tailwind CSS", "Bash"]
 featured: true
-order: 3
+order: 4
 ---
 
 ## 問題

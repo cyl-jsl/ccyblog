@@ -1,0 +1,52 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F6F1EA"/>
+  <rect x="40" y="40" width="1120" height="550" rx="28" fill="#FFFDF9" stroke="#E6D8C8" stroke-width="2"/>
+  <rect x="72" y="72" width="1056" height="92" rx="20" fill="#B53A2D"/>
+  <circle cx="114" cy="118" r="10" fill="#F6C8A7"/>
+  <circle cx="146" cy="118" r="10" fill="#F2E4D6" opacity="0.85"/>
+  <circle cx="178" cy="118" r="10" fill="#7A1F18" opacity="0.45"/>
+  <text x="220" y="128" fill="#FFF7F2" font-family="ui-sans-serif, system-ui, sans-serif" font-size="38" font-weight="700">Redmine Skills</text>
+  <text x="73" y="214" fill="#7C6758" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20" letter-spacing="0.18em">NATURAL LANGUAGE TO REDMINE ACTIONS</text>
+
+  <rect x="72" y="242" width="404" height="292" rx="24" fill="#F9F5EF" stroke="#E8DDD1"/>
+  <text x="104" y="286" fill="#6B584B" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700">Agent Input</text>
+  <rect x="104" y="306" width="340" height="74" rx="18" fill="#FFFDF9" stroke="#D7C6B6"/>
+  <text x="128" y="349" fill="#3D3027" font-family="ui-monospace, SFMono-Regular, monospace" font-size="24">log 4h on #1234 today</text>
+  <rect x="104" y="402" width="148" height="44" rx="22" fill="#B53A2D"/>
+  <text x="139" y="430" fill="#FFF7F2" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700">Skill Router</text>
+  <rect x="268" y="402" width="176" height="44" rx="22" fill="#EFD7C3"/>
+  <text x="304" y="430" fill="#6D4333" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700">HTTPS only</text>
+  <rect x="104" y="464" width="340" height="42" rx="14" fill="#FFF3EA" stroke="#E5C4A8"/>
+  <text x="126" y="491" fill="#9A4D2F" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="600">Confirm destructive actions, verify batch writes</text>
+
+  <rect x="508" y="242" width="620" height="292" rx="24" fill="#FCFAF6" stroke="#E8DDD1"/>
+  <text x="540" y="286" fill="#6B584B" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700">Issue Board</text>
+  <rect x="540" y="306" width="170" height="196" rx="20" fill="#F4E5DB"/>
+  <rect x="732" y="306" width="170" height="196" rx="20" fill="#F8EEDB"/>
+  <rect x="924" y="306" width="170" height="196" rx="20" fill="#E9F1E6"/>
+  <text x="566" y="340" fill="#8E4E37" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700">TODO</text>
+  <text x="754" y="340" fill="#9A7A28" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700">IN PROGRESS</text>
+  <text x="966" y="340" fill="#4B7A4E" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700">DONE</text>
+
+  <rect x="560" y="360" width="130" height="52" rx="16" fill="#FFFDF9" stroke="#DFC0B0"/>
+  <text x="582" y="392" fill="#553D32" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20">#1234</text>
+  <rect x="560" y="426" width="130" height="52" rx="16" fill="#FFFDF9" stroke="#DFC0B0"/>
+  <text x="582" y="458" fill="#553D32" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20">+ 4.0h</text>
+
+  <rect x="752" y="360" width="130" height="118" rx="16" fill="#FFFDF9" stroke="#E1C989"/>
+  <text x="775" y="393" fill="#5C4B26" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700">Issue edit</text>
+  <text x="775" y="425" fill="#6C5E40" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16">project create</text>
+  <text x="775" y="453" fill="#6C5E40" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16">time entry</text>
+
+  <rect x="944" y="360" width="130" height="52" rx="16" fill="#FFFDF9" stroke="#BFD8C0"/>
+  <text x="973" y="392" fill="#35563A" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700">API OK</text>
+  <rect x="944" y="426" width="130" height="52" rx="16" fill="#FFFDF9" stroke="#BFD8C0"/>
+  <text x="970" y="458" fill="#35563A" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700">audit log</text>
+
+  <path d="M458 425C485 425 485 425 508 425" stroke="#B53A2D" stroke-width="8" stroke-linecap="round"/>
+  <path d="M489 407L514 425L489 443" stroke="#B53A2D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="72" y="552" width="242" height="14" rx="7" fill="#E7D4C0"/>
+  <rect x="330" y="552" width="186" height="14" rx="7" fill="#B53A2D" opacity="0.25"/>
+  <rect x="532" y="552" width="128" height="14" rx="7" fill="#DDA36E" opacity="0.5"/>
+</svg>
