@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const allProjects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const currentIndex = allProjects.findIndex((entry) => entry.id === project.id);
+const prevProject = currentIndex > 0
+  ? { id: allProjects[currentIndex - 1].id, title: allProjects[currentIndex - 1].data.title }
+  : null;
+const nextProject = currentIndex < allProjects.length - 1
+  ? { id: allProjects[currentIndex + 1].id, title: allProjects[currentIndex + 1].data.title }
+  : null;
+
+const projectStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: project.data.title,
+  description: project.data.description,
+  url: Astro.url.href,
+  inLanguage: 'zh-TW',
+  creator: {
+    '@type': 'Person',
+    name: 'CCY',
+  },
+  keywords: project.data.tech.join(', '),
+};
+---
+
+<BaseLayout
+  title={project.data.title}
+  description={project.data.description}
+  image={project.data.image}
+  structuredData={projectStructuredData}
+>
+  <div class="max-w-[960px] mx-auto px-4 sm:px-10 py-8">
+    <article class="max-w-[720px] mx-auto">
+      <a href="/projects" class="text-[11px] text-secondary hover:text-accent transition-colors">
+        &larr; 返回作品列表
+      </a>
+
+      <header class="mt-4 pb-8 border-b border-divider">
+        <p class="text-[10px] uppercase tracking-[4px] text-muted mb-3">Project</p>
+        <h1 class="font-serif text-[30px] font-normal text-heading leading-snug">
+          {project.data.title}
+        </h1>
+        <p class="text-[14px] text-secondary mt-3 leading-relaxed">
+          {project.data.description}
+        </p>
+
+        {project.data.tech.length > 0 && (
+          <div class="flex flex-wrap gap-1.5 mt-5">
+            {project.data.tech.map((item) => (
+              <span class="text-[10px] bg-cat-tech-bg text-cat-tech-text px-2 py-0.5 rounded-full">
+                {item}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {(project.data.url || project.data.github) && (
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-5">
+            {project.data.url && (
+              <a
+                href={project.data.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-[12px] text-accent hover:underline"
+              >
+                Live Demo &rarr;
+              </a>
+            )}
+            {project.data.github && (
+              <a
+                href={project.data.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-[12px] text-secondary hover:text-heading transition-colors"
+              >
+                GitHub
+              </a>
+            )}
+          </div>
+        )}
+      </header>
+
+      {project.data.image && (
+        <img
+          src={project.data.image}
+          alt={project.data.title}
+          class="w-full rounded-lg border border-divider-light mt-8"
+        />
+      )}
+
+      <div class="prose mt-8">
+        <Content />
+      </div>
+
+      {(prevProject || nextProject) && (
+        <nav class="flex justify-between gap-4 pt-6 mt-8 border-t border-divider">
+          {prevProject ? (
+            <a href={`/projects/${prevProject.id}`} class="group flex-1">
+              <span class="text-[10px] text-muted">&larr; 上一個作品</span>
+              <p class="font-serif text-[13px] text-heading group-hover:text-accent transition-colors mt-1">
+                {prevProject.title}
+              </p>
+            </a>
+          ) : <div />}
+          {nextProject ? (
+            <a href={`/projects/${nextProject.id}`} class="group flex-1 text-right">
+              <span class="text-[10px] text-muted">下一個作品 &rarr;</span>
+              <p class="font-serif text-[13px] text-heading group-hover:text-accent transition-colors mt-1">
+                {nextProject.title}
+              </p>
+            </a>
+          ) : <div />}
+        </nav>
+      )}
+    </article>
+  </div>
+</BaseLayout>

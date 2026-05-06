@@ -2,7 +2,17 @@
 title: "Chain Chains"
 description: "多鏈加密資產投資組合追蹤儀表板，即時監控跨鏈錢包資產分佈與代幣組合。"
 github: "https://github.com/cyl-jsl/chain_chains"
-tech: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS 4", "Zustand", "SWR", "IndexedDB"]
+image: "/project-covers/chain-chains.svg"
+tech:
+  [
+    "Next.js 15",
+    "React 19",
+    "TypeScript",
+    "Tailwind CSS 4",
+    "Zustand",
+    "SWR",
+    "IndexedDB",
+  ]
 featured: true
 order: 1
 ---

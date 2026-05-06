@@ -1,0 +1,32 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" fill="#F7E2D3"/>
+  <rect x="54" y="54" width="1092" height="792" rx="28" fill="#FFF7F1" stroke="#E5BEA6" stroke-width="2"/>
+  <circle cx="238" cy="248" r="120" fill="#6C63FF" opacity="0.18"/>
+  <circle cx="980" cy="174" r="98" fill="#FF9B71" opacity="0.22"/>
+  <circle cx="934" cy="702" r="118" fill="#FFD166" opacity="0.24"/>
+  <rect x="124" y="152" width="418" height="194" rx="30" fill="#5B56D6"/>
+  <path d="M204 346L158 392V346H204Z" fill="#5B56D6"/>
+  <text x="172" y="214" fill="#CEC8FF" font-family="'JetBrains Mono', monospace" font-size="24" letter-spacing="4">DISCORD INPUT</text>
+  <text x="170" y="276" fill="#FFFFFF" font-family="Georgia, serif" font-size="72">Lunch 85</text>
+  <text x="172" y="314" fill="#DCD7FF" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="3">AUTO-CATEGORY  FOOD</text>
+  <rect x="660" y="168" width="284" height="110" rx="24" fill="#FFFFFF" stroke="#E9D6C8" stroke-width="2"/>
+  <text x="696" y="218" fill="#8E6A57" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="4">THIS MONTH</text>
+  <text x="694" y="252" fill="#302521" font-family="Georgia, serif" font-size="52">12,480</text>
+  <rect x="660" y="298" width="284" height="110" rx="24" fill="#FFFFFF" stroke="#E9D6C8" stroke-width="2"/>
+  <text x="696" y="348" fill="#8E6A57" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="4">GROUP SPLIT</text>
+  <text x="694" y="382" fill="#302521" font-family="Georgia, serif" font-size="52">4 people</text>
+  <circle cx="784" cy="566" r="148" fill="#FFFBF6" stroke="#E9D6C8" stroke-width="2"/>
+  <path d="M784 566L784 446A120 120 0 0 1 887 627L784 566Z" fill="#5B56D6"/>
+  <path d="M784 566L887 627A120 120 0 0 1 700 651L784 566Z" fill="#FF9B71"/>
+  <path d="M784 566L700 651A120 120 0 0 1 784 446L784 566Z" fill="#FFD166"/>
+  <rect x="138" y="506" width="356" height="188" rx="30" fill="#FFF7F1" stroke="#E9D6C8" stroke-width="2"/>
+  <text x="176" y="564" fill="#8E6A57" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="4">BUDGET ALERTS</text>
+  <rect x="176" y="590" width="276" height="18" rx="9" fill="#F0DED1"/>
+  <rect x="176" y="590" width="196" height="18" rx="9" fill="#5B56D6"/>
+  <rect x="176" y="632" width="276" height="18" rx="9" fill="#F0DED1"/>
+  <rect x="176" y="632" width="148" height="18" rx="9" fill="#FF9B71"/>
+  <rect x="176" y="674" width="276" height="18" rx="9" fill="#F0DED1"/>
+  <rect x="176" y="674" width="232" height="18" rx="9" fill="#FFD166"/>
+  <text x="120" y="780" fill="#302521" font-family="Georgia, serif" font-size="112">MakeItCount</text>
+  <text x="126" y="826" fill="#8E6A57" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="4">NATURAL-LANGUAGE EXPENSE TRACKING IN DISCORD</text>
+</svg>

@@ -8,12 +8,16 @@ interface Props {
   description?: string;
   image?: string;
   canonicalURL?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description = 'CCY Blog - 技術文章、個人日誌、作品集', image, canonicalURL } = Astro.props;
+const { title, description = 'CCY Blog 分享 AI Agent、軟體工程實作、技術文章與個人作品。', image, canonicalURL, structuredData } = Astro.props;
 const siteTitle = `${title} | CCY Blog`;
-const resolvedImage = image || '/og-default.png';
-const resolvedURL = canonicalURL || Astro.url.href;
+const siteURL = Astro.site ?? Astro.url;
+const resolvedImage = new URL(image || '/og-default.png', siteURL).toString();
+const resolvedURL = canonicalURL ? new URL(canonicalURL, siteURL).toString() : Astro.url.href;
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+const structuredDataEntries = Array.isArray(structuredData) ? structuredData : structuredData ? [structuredData] : [];
 ---
 
 <!doctype html>
@@ -32,9 +36,12 @@ const resolvedURL = canonicalURL || Astro.url.href;
     <title>{siteTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={resolvedURL} />
+    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CCY Blog" />
+    <meta property="og:locale" content="zh_TW" />
     <meta property="og:url" content={resolvedURL} />
     <meta property="og:title" content={siteTitle} />
     <meta property="og:description" content={description} />
@@ -42,9 +49,14 @@ const resolvedURL = canonicalURL || Astro.url.href;
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={resolvedURL} />
     <meta name="twitter:title" content={siteTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={resolvedImage} />
+
+    {structuredDataEntries.map((entry) => (
+      <script type="application/ld+json" set:html={JSON.stringify(entry)} />
+    ))}
 
     <!-- RSS -->
     <link rel="alternate" type="application/rss+xml" title="CCY Blog" href="/rss.xml" />

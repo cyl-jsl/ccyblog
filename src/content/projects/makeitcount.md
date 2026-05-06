@@ -2,7 +2,17 @@
 title: "MakeItCount"
 description: "AI 驅動的 Discord 記帳機器人，用自然語言記帳，支援群組分帳、預算管理與月報圖表。"
 github: "https://github.com/cyl-jsl/makeitcount"
-tech: ["Node.js", "TypeScript", "Discord.js", "Claude API", "PostgreSQL", "Prisma", "Chart.js"]
+image: "/project-covers/makeitcount.svg"
+tech:
+  [
+    "Node.js",
+    "TypeScript",
+    "Discord.js",
+    "Claude API",
+    "PostgreSQL",
+    "Prisma",
+    "Chart.js",
+  ]
 featured: true
 order: 2
 ---

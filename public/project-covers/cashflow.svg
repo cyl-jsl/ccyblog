@@ -1,0 +1,38 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" fill="#F4E8D7"/>
+  <rect x="52" y="52" width="1096" height="796" rx="28" fill="#FBF5EC" stroke="#D7C3A7" stroke-width="2"/>
+  <rect x="116" y="116" width="968" height="668" rx="24" fill="#FFFDF8"/>
+  <path d="M116 250H1084" stroke="#E8D6BE" stroke-width="2" stroke-dasharray="8 10"/>
+  <path d="M116 356H1084" stroke="#EFE3D2" stroke-width="2" stroke-dasharray="8 10"/>
+  <path d="M116 462H1084" stroke="#EFE3D2" stroke-width="2" stroke-dasharray="8 10"/>
+  <path d="M116 568H1084" stroke="#EFE3D2" stroke-width="2" stroke-dasharray="8 10"/>
+  <path d="M116 674H1084" stroke="#EFE3D2" stroke-width="2" stroke-dasharray="8 10"/>
+  <path d="M250 116V784" stroke="#EFE3D2" stroke-width="2" stroke-dasharray="8 10"/>
+  <path d="M546 116V784" stroke="#EFE3D2" stroke-width="2" stroke-dasharray="8 10"/>
+  <path d="M842 116V784" stroke="#EFE3D2" stroke-width="2" stroke-dasharray="8 10"/>
+  <rect x="164" y="176" width="236" height="148" rx="24" fill="#1D4F63"/>
+  <text x="196" y="228" fill="#F3EBDD" font-family="'JetBrains Mono', monospace" font-size="24" letter-spacing="3">LIQUID</text>
+  <text x="196" y="284" fill="#FFFFFF" font-family="Georgia, serif" font-size="64">128,400</text>
+  <rect x="164" y="384" width="236" height="132" rx="24" fill="#F7C76E"/>
+  <text x="196" y="434" fill="#6A4424" font-family="'JetBrains Mono', monospace" font-size="24" letter-spacing="3">CARDS</text>
+  <text x="196" y="488" fill="#6A4424" font-family="Georgia, serif" font-size="56">-42,880</text>
+  <rect x="164" y="576" width="236" height="132" rx="24" fill="#DE8F62"/>
+  <text x="196" y="626" fill="#FFF4E7" font-family="'JetBrains Mono', monospace" font-size="24" letter-spacing="3">BUFFER</text>
+  <text x="196" y="680" fill="#FFF4E7" font-family="Georgia, serif" font-size="56">35 days</text>
+  <path d="M498 638C575 552 625 496 688 458C742 425 801 406 854 360C913 309 956 239 1006 172" stroke="#D68052" stroke-width="18" stroke-linecap="round"/>
+  <path d="M498 638C567 604 622 598 682 610C734 620 779 648 836 649C898 650 958 620 1016 556" stroke="#214D60" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="498" cy="638" r="23" fill="#214D60"/>
+  <circle cx="688" cy="458" r="23" fill="#D68052"/>
+  <circle cx="854" cy="360" r="23" fill="#D68052"/>
+  <circle cx="1016" cy="556" r="23" fill="#214D60"/>
+  <rect x="510" y="162" width="420" height="98" rx="22" fill="#214D60" opacity="0.08"/>
+  <text x="548" y="215" fill="#6A5A47" font-family="'JetBrains Mono', monospace" font-size="24" letter-spacing="5">PERSONAL FINANCE</text>
+  <text x="546" y="560" fill="#3A2B23" font-family="Georgia, serif" font-size="124">Cashflow</text>
+  <text x="550" y="618" fill="#8A715C" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="4">FORECASTING WHAT YOU CAN ACTUALLY SPEND</text>
+  <rect x="894" y="672" width="124" height="58" rx="29" fill="#214D60"/>
+  <text x="930" y="708" fill="#F4E8D7" font-family="'JetBrains Mono', monospace" font-size="26">AI</text>
+  <rect x="744" y="672" width="126" height="58" rx="29" fill="#F7C76E"/>
+  <text x="770" y="708" fill="#6A4424" font-family="'JetBrains Mono', monospace" font-size="26">CARDS</text>
+  <rect x="560" y="672" width="160" height="58" rx="29" fill="#E8D6BE"/>
+  <text x="590" y="708" fill="#6A5A47" font-family="'JetBrains Mono', monospace" font-size="26">SCENARIOS</text>
+</svg>

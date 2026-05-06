@@ -2,7 +2,18 @@
 title: "Cashflow"
 description: "本地運行的個人金流管理工具，回答「我還有多少錢可以動」，支援信用卡帳單、分期追蹤、現金流預測與 AI Agent 自然語言介面。"
 github: "https://github.com/cyl-jsl/cashflow-release"
-tech: ["FastAPI", "SQLite", "SQLAlchemy", "React", "TypeScript", "Vite", "Tailwind CSS", "TanStack Query"]
+image: "/project-covers/cashflow.svg"
+tech:
+  [
+    "FastAPI",
+    "SQLite",
+    "SQLAlchemy",
+    "React",
+    "TypeScript",
+    "Vite",
+    "Tailwind CSS",
+    "TanStack Query",
+  ]
 featured: true
 order: 1
 ---

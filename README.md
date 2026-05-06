@@ -1,43 +1,22 @@
-# Astro Starter Kit: Minimal
+# CCY Blog
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+CCY Blog 是以 Astro 建置的靜態個人網站，內容包含技術文章、AI Agent 實作、個人作品與書寫紀錄。
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+所有指令都在專案根目錄執行。
 
-Inside of your Astro project, you'll see the following folders and files:
+| Command        | Action                                      |
+| :------------- | :------------------------------------------ |
+| `pnpm install` | 安裝相依套件                                |
+| `pnpm dev`     | 啟動本機開發伺服器                          |
+| `pnpm build`   | 產生正式建置、更新 sitemap 與 Pagefind 索引 |
+| `pnpm preview` | 以 production 輸出預覽網站                  |
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## SEO 與部署備忘
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Google Search Console 驗證碼透過 `PUBLIC_GOOGLE_SITE_VERIFICATION` 注入；未設定時不會輸出驗證 meta tag。
+- `pnpm build` 會一併產生預設 OG 圖 fallback、文章 JSON-LD、以及含 `lastmod` 的 sitemap。
+- 部署到 Cloudflare 後，優先確認 `https://ccyblog.pages.dev/og-default.png` 與 `https://ccyblog.pages.dev/sitemap-index.xml` 可正常存取。
+- 完成網域切換時，記得同步更新 `astro.config.mjs` 裡的 `site` 與 `public/robots.txt` 內的 sitemap URL。
+- Search Console 驗證完成後，提交 `https://ccyblog.pages.dev/sitemap-index.xml`；若之後換成自訂網域，也要重新提交新網域版本。

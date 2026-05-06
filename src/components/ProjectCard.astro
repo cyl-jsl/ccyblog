@@ -5,19 +5,27 @@ interface Props {
   url?: string;
   github?: string;
   image?: string;
+  slug?: string;
   tech: string[];
 }
 
-const { title, description, url, github, image, tech } = Astro.props;
+const { title, description, url, github, image, slug, tech } = Astro.props;
+const detailHref = slug ? `/projects/${slug}` : undefined;
 ---
 
-<div class="bg-surface rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+<div class="bg-surface border border-divider-light rounded-lg overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-[transform,box-shadow] duration-200">
   {image && (
     <img src={image} alt={title} class="w-full h-48 object-cover" />
   )}
   <div class="p-5">
-    <h3 class="font-serif text-[14px] font-normal text-heading mb-2">{title}</h3>
-    <p class="text-[11px] text-secondary mb-4">{description}</p>
+    <h3 class="font-serif text-[14px] font-normal text-heading mb-2 leading-snug">
+      {detailHref ? (
+        <a href={detailHref} class="hover:text-accent transition-colors">
+          {title}
+        </a>
+      ) : title}
+    </h3>
+    <p class="text-[11px] text-secondary mb-4 leading-relaxed">{description}</p>
 
     {tech.length > 0 && (
       <div class="flex flex-wrap gap-1.5 mb-4">
@@ -29,7 +37,15 @@ const { title, description, url, github, image, tech } = Astro.props;
       </div>
     )}
 
-    <div class="flex items-center gap-3">
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+      {detailHref && (
+        <a
+          href={detailHref}
+          class="text-[11px] text-accent hover:underline"
+        >
+          閱讀案例 &rarr;
+        </a>
+      )}
       {url && (
         <a
           href={url}

@@ -20,6 +20,31 @@ interface Props {
 
 const { title, description, pubDate, updatedDate, category, tags, heroImage, headings, rawContent, prevPost, nextPost } = Astro.props;
 const readingTime = getReadingTime(rawContent);
+const siteURL = Astro.site ?? Astro.url;
+const articleURL = Astro.url.href;
+const articleImage = new URL(heroImage || '/og-default.png', siteURL).toString();
+const articleStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  image: articleImage,
+  url: articleURL,
+  mainEntityOfPage: articleURL,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  articleSection: category,
+  keywords: tags.join(', '),
+  inLanguage: 'zh-TW',
+  author: {
+    '@type': 'Person',
+    name: 'CCY',
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'CCY',
+  },
+};
 
 const dateFormatter = new Intl.DateTimeFormat('zh-TW', {
   year: 'numeric',
@@ -28,7 +53,7 @@ const dateFormatter = new Intl.DateTimeFormat('zh-TW', {
 });
 ---
 
-<BaseLayout title={title} description={description} image={heroImage}>
+<BaseLayout title={title} description={description} image={heroImage} structuredData={articleStructuredData}>
   <div class="max-w-[960px] mx-auto px-4 sm:px-10 py-8">
     <div class="flex justify-center gap-[60px]">
       {/* Main content column */}

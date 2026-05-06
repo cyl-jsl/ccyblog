@@ -26,11 +26,41 @@ const dateFormatter = new Intl.DateTimeFormat('zh-TW', {
   month: 'long',
   day: 'numeric',
 });
+
+const siteRoot = new URL('/', Astro.site ?? Astro.url).toString();
+const personId = `${siteRoot}#person`;
+const websiteId = `${siteRoot}#website`;
+const homepageStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': personId,
+    name: 'CCY',
+    url: new URL('/about/', siteRoot).toString(),
+    sameAs: ['https://github.com/cyl-jsl'],
+    email: 'mailto:cyl.jsl@gmail.com',
+    jobTitle: 'Software Engineer',
+    description: '專注於 AI Agent、軟體工程實作與開發流程設計的軟體工程師。',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': websiteId,
+    url: siteRoot,
+    name: 'CCY Blog',
+    description: 'CCY Blog 分享 AI Agent、軟體工程實作、技術文章與個人作品。',
+    inLanguage: 'zh-TW',
+    publisher: { '@id': personId },
+  },
+];
 ---
 
-<BaseLayout title="首頁">
+<BaseLayout
+  title="AI Agent 與軟體工程筆記"
+  description="CCY Blog 分享 AI Agent、軟體工程實作、技術文章與個人作品。"
+  structuredData={homepageStructuredData}
+>
   <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
-
     {/* ── Masthead ── */}
     <section class="text-center py-12 sm:py-16">
       <p class="text-[10px] uppercase tracking-[4px] text-muted mb-4">Writings & Works</p>
@@ -40,6 +70,17 @@ const dateFormatter = new Intl.DateTimeFormat('zh-TW', {
       <p class="text-[13px] text-secondary">
         寫程式、做工具、偶爾記錄一些還沒想通的事情。
       </p>
+      <p class="text-[13px] text-secondary leading-relaxed max-w-[42rem] mx-auto mt-5">
+        我做的大多不是從「想做一個作品」開始，而是從某個真實摩擦開始：記帳太麻煩、Redmine 太煩、FF14 路線太繞，或是想把 AI 協作這件事做得更像工程，而不是提示詞碰運氣。
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-6">
+        <a href="/projects" class="px-4 py-2 rounded-full bg-heading text-page text-[12px] hover:opacity-90 transition-opacity">
+          看作品
+        </a>
+        <a href="/about" class="px-4 py-2 rounded-full border border-divider text-[12px] text-secondary hover:text-heading hover:border-accent transition-colors">
+          認識我
+        </a>
+      </div>
       <div class="w-10 h-px bg-accent mx-auto mt-6"></div>
     </section>
 
@@ -100,8 +141,16 @@ const dateFormatter = new Intl.DateTimeFormat('zh-TW', {
 
     {/* ── Featured Projects ── */}
     {featuredProjects.length > 0 && (
-      <section class="mb-12">
-        <p class="text-[10px] uppercase tracking-[4px] text-muted mb-6">精選作品</p>
+      <section class="mb-12 border-t border-divider pt-10">
+        <div class="flex flex-col lg:flex-row lg:items-end gap-4 mb-6">
+          <div class="lg:max-w-[18rem]">
+            <p class="text-[10px] uppercase tracking-[4px] text-muted mb-2">精選作品</p>
+            <h2 class="font-serif text-[20px] font-normal text-heading">把日常摩擦做成工具</h2>
+          </div>
+          <p class="text-[13px] text-secondary leading-relaxed max-w-[42rem]">
+            這裡挑的是最能代表我工作方式的幾個 side project：先把問題講清楚，再決定要不要動手做；做了之後，不只留下功能，也留下可以重用的流程、介面或思考方式。
+          </p>
+        </div>
         <div class:list={[
           'grid gap-6',
           featuredProjects.length >= 3 ? 'sm:grid-cols-2 lg:grid-cols-3' :
@@ -114,9 +163,15 @@ const dateFormatter = new Intl.DateTimeFormat('zh-TW', {
               url={project.data.url}
               github={project.data.github}
               image={project.data.image}
+              slug={project.id}
               tech={project.data.tech}
             />
           ))}
+        </div>
+        <div class="mt-6">
+          <a href="/projects" class="text-[12px] text-accent hover:underline">
+            看完整作品集 &rarr;
+          </a>
         </div>
       </section>
     )}
