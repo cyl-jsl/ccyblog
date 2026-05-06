@@ -24,6 +24,7 @@ Redmine 操作繁瑣——工時登打要找議題、選活動類型、填時數
 
 ## 成果
 
-- 用自然語言完成所有 Redmine 操作——「幫我登今天 4 小時開發在 #1234」
-- 安全設計：回應淨化、強制 HTTPS、DELETE 互動確認、可選審計日誌
-- 模組化架構：新增 API 操作只需加一個 reference 檔案和路由表一行
+- 把高摩擦的 Redmine REST API 操作重新包成自然語言工作流，展示我在內部工具、workflow automation 與企業整合上的產品化能力
+- 不把 AI 當成直接執行的黑盒，而是加入風險分級、確認流程與批次驗證，把可靠性與治理一起納入設計
+- 用 reference routing 控制 context 成本，再以 wrapper 隔離憑證與請求細節，讓 Skill 在可維護的前提下持續擴充 API surface
+- 這個專案重點不只是「可以呼叫 Redmine」，而是把 AI tooling、安全邊界與系統整合做成一個可長期維護的工作流介面
